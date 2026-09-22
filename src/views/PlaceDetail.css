@@ -1,0 +1,350 @@
+.detail-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+
+.detail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(10 8 20 / 0.32);
+}
+
+.detail {
+  position: absolute;
+  inset: calc(var(--safe-top) + 10px) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+  box-shadow: 0 -10px 40px -10px rgb(0 0 0 / 0.35);
+  touch-action: pan-y;
+}
+
+@media (min-width: 700px) {
+  .detail {
+    inset: 5vh 0;
+    margin: 0 auto;
+    width: min(560px, calc(100% - 40px));
+  }
+}
+
+.detail__scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 var(--gutter) calc(var(--safe-bottom) + 32px);
+  scrollbar-width: none;
+}
+
+.detail__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+}
+
+/* ---------- Hero ---------- */
+
+.detail-hero {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  margin: 0 calc(-1 * var(--gutter));
+  padding: 30px var(--gutter) 22px;
+  text-align: center;
+  background:
+    radial-gradient(90% 70% at 50% 0%, color-mix(in srgb, var(--tint) 34%, transparent), transparent 70%),
+    radial-gradient(60% 50% at 90% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%);
+  cursor: grab;
+  touch-action: none;
+}
+
+.detail-hero__grabber {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 38px;
+  height: 5px;
+  margin-left: -19px;
+  border-radius: 999px;
+  background: var(--fill-strong);
+}
+
+.detail-hero__name {
+  margin-top: 6px;
+  font-size: 1.75rem;
+  font-weight: 760;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+
+.detail-hero__sub {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.detail-hero__status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.detail-hero__until {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ---------- Actions ---------- */
+
+.detail-actions {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 8px;
+  margin: 4px 0 18px;
+}
+
+.detail-actions .button,
+.detail-actions .save-button {
+  min-height: 50px;
+  padding: 0 12px;
+  font-size: 0.9375rem;
+}
+
+/* ---------- Sections ---------- */
+
+.detail-section {
+  padding: 16px 0;
+  border-top: 0.5px solid var(--separator);
+}
+
+.detail-section__title {
+  margin-bottom: 10px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.fact {
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 4px;
+  padding: 12px 4px;
+  border-radius: 18px;
+  background: var(--card-bg);
+  border: 0.5px solid var(--card-border);
+  text-align: center;
+  color: var(--text-tertiary);
+}
+
+.fact.is-on {
+  color: var(--text);
+}
+
+.fact__icon {
+  width: 22px;
+  height: 22px;
+  color: var(--tint);
+}
+
+.fact:not(.is-on) .fact__icon {
+  color: var(--text-tertiary);
+}
+
+.fact__label {
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.fact__caption {
+  font-size: 0.6875rem;
+  color: var(--text-tertiary);
+}
+
+.fact__price {
+  display: flex;
+  gap: 3px;
+  height: 22px;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  color: var(--text-tertiary);
+}
+
+.fact__price .is-on {
+  color: var(--tint);
+}
+
+.detail-deals {
+  display: grid;
+  gap: 10px;
+}
+
+.deal {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9375rem;
+}
+
+.deal svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--tint);
+}
+
+.deal--student svg {
+  color: var(--open);
+}
+
+.detail-note {
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: var(--soon-bg);
+  color: var(--soon);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.hours-today {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--tint) 14%, var(--card-bg));
+  border: 0.5px solid color-mix(in srgb, var(--tint) 30%, transparent);
+}
+
+.hours-today__label {
+  font-weight: 700;
+}
+
+.hours-today__value {
+  font-weight: 650;
+  text-align: right;
+}
+
+.hours-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 44px;
+  margin-top: 4px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.hours-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.hours-week {
+  overflow: hidden;
+}
+
+.hours-week li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 14px;
+  font-size: 0.9375rem;
+  border-bottom: 0.5px solid var(--separator);
+}
+
+.hours-week li:last-child {
+  border-bottom: 0;
+}
+
+.hours-week li.is-today {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hours-week li:not(.is-today) {
+  color: var(--text-secondary);
+}
+
+.detail-fine {
+  margin-top: 6px;
+  font-size: 0.8125rem;
+  color: var(--text-tertiary);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--fill);
+  font-size: 0.875rem;
+  font-weight: 550;
+}
+
+.detail-address {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.detail-address svg {
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  color: var(--text-secondary);
+}
+
+.detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  margin-top: 4px;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.detail-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.detail-unverified {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: var(--fill);
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.detail-unverified svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 1px;
+}

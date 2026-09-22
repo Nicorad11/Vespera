@@ -1,0 +1,161 @@
+.pin-marker {
+  background: none;
+  border: 0;
+}
+
+.pin-marker.is-filtered {
+  pointer-events: none;
+}
+
+.pin-marker:focus-visible {
+  outline: none;
+}
+
+.pin-marker:focus-visible .map-pin__bubble {
+  outline: 3px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  outline-offset: 2px;
+}
+
+.map-pin {
+  --pin: var(--accent);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 44px;
+  height: 50px;
+  padding-top: 3px;
+  transform-origin: 50% 100%;
+  transition:
+    transform 0.4s var(--ease-spring),
+    opacity 0.3s ease,
+    filter 0.3s ease;
+}
+
+.map-pin--food {
+  --pin: var(--food);
+}
+.map-pin--study {
+  --pin: var(--study);
+}
+.map-pin--lateNight {
+  --pin: var(--lateNight);
+}
+
+.map-pin__bubble {
+  --pin: inherit;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--pin);
+  background: var(--glass-bg-strong);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 2px solid var(--pin);
+  box-shadow:
+    0 8px 16px -6px rgb(0 0 0 / 0.35),
+    inset 0 1px 0 var(--glass-highlight);
+}
+
+.map-pin__bubble.map-pin--food {
+  --pin: var(--food);
+}
+.map-pin__bubble.map-pin--study {
+  --pin: var(--study);
+}
+.map-pin__bubble.map-pin--lateNight {
+  --pin: var(--lateNight);
+}
+
+.map-pin__bubble svg {
+  width: 19px;
+  height: 19px;
+}
+
+.map-pin__tip {
+  width: 8px;
+  height: 8px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--pin);
+  box-shadow: 0 0 0 2px var(--bg-elevated);
+}
+
+.pin-marker:hover .map-pin:not(.is-filtered) {
+  transform: scale(1.08);
+}
+
+.is-zoomed-out .map-pin:not(.is-filtered) {
+  transform: scale(0.74);
+}
+
+.is-zoomed-out .pin-marker:hover .map-pin:not(.is-filtered) {
+  transform: scale(0.84);
+}
+
+.map-pin.is-closed {
+  opacity: 0.5;
+  filter: grayscale(0.85);
+}
+
+.map-pin.is-closing .map-pin__bubble {
+  animation: pin-pulse 1.8s ease-in-out infinite;
+}
+
+.map-pin.is-filtered {
+  opacity: 0;
+  transform: scale(0.2);
+}
+
+.map-pin.is-selected {
+  opacity: 0;
+  transition: none;
+}
+
+@keyframes pin-pulse {
+  50% {
+    box-shadow:
+      0 0 0 6px color-mix(in srgb, var(--soon) 25%, transparent),
+      0 8px 16px -6px rgb(0 0 0 / 0.35);
+  }
+}
+
+.user-dot-marker {
+  background: none;
+  border: 0;
+}
+
+.user-dot {
+  position: relative;
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #0a84ff;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.3);
+}
+
+.user-dot::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: #0a84ff;
+  opacity: 0.35;
+  animation: user-ping 2.2s ease-out infinite;
+  z-index: -1;
+}
+
+@keyframes user-ping {
+  from {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  to {
+    transform: scale(3.2);
+    opacity: 0;
+  }
+}

@@ -9,9 +9,12 @@ import { useNavigation } from './viewmodels/navigation';
 import { useFavorites } from './viewmodels/saved';
 import { useSnapshots } from './viewmodels/snapshots';
 import { HomeView } from './views/HomeView';
+import { MapView } from './views/MapView';
+import { PlaceDetail } from './views/PlaceDetail';
+import { SavedView } from './views/SavedView';
 
 export function App() {
-  const { tab } = useNavigation();
+  const { tab, detail } = useNavigation();
   const category = useCategory();
   const favorites = useFavorites();
   const snapshots = useSnapshots();
@@ -25,10 +28,16 @@ export function App() {
       <LayoutGroup>
         <div className="app">
           <AmbientBackground category={category} />
-          <main>
+          {/* Views stay mounted so each keeps its scroll position and map camera. */}
+          <main inert={detail !== null}>
             <HomeView active={tab === 'now'} />
+            <MapView active={tab === 'map'} />
+            <SavedView active={tab === 'saved'} />
           </main>
-          <TabBar savedOpenCount={savedOpenCount} />
+          <div inert={detail !== null}>
+            <TabBar savedOpenCount={savedOpenCount} />
+          </div>
+          <PlaceDetail />
           <ToastHost />
         </div>
       </LayoutGroup>

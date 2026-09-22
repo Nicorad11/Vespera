@@ -107,3 +107,28 @@ export function useNavigation(): NavState {
 export function useScrollToTopSignal() {
   return useStore(scrollToTopSignal);
 }
+
+/** Asks the map to fly to a place and open its card ("Show on map" in the detail). */
+const mapFocus = createStore<{ id: string; count: number } | null>(null);
+
+export function showOnMap(id: string): void {
+  const state = nav.get();
+  const next: NavState = { tab: 'map', detail: null };
+  nav.set(next);
+  if (state.detail && detailPushed) {
+    detailPushed = false;
+    history.back();
+    // history.back() restores the previous tab asynchronously; re-apply the map tab after it.
+    window.addEventListener('popstate', () => {
+      nav.set(next);
+      history.replaceState(null, '', hashFor(next));
+    }, { once: true });
+  } else {
+    history.replaceState(null, '', hashFor(next));
+  }
+  mapFocus.set((previous) => ({ id, count: (previous?.count ?? 0) + 1 }));
+}
+
+export function useMapFocus() {
+  return useStore(mapFocus);
+}
