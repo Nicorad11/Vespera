@@ -16,7 +16,7 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
-import { AnimatePresence, motion, useDragControls, type PanInfo } from 'motion/react';
+import { AnimatePresence, motion, useDragControls, useIsPresent, type PanInfo } from 'motion/react';
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { categoryMeta } from '../components/categoryMeta';
 import { CategoryIcon } from '../components/CategoryIcon';
@@ -60,6 +60,8 @@ function DetailSheet({ route, snapshot }: { route: DetailRoute; snapshot: PlaceS
   const dragControls = useDragControls();
   const closeButton = useRef<HTMLButtonElement>(null);
   const morph = route.layoutKey !== null;
+  // While animating out, let taps and screen readers go straight to the app underneath.
+  const isPresent = useIsPresent();
 
   // Focus the close button on open, return focus on close, and close on Escape.
   useEffect(() => {
@@ -96,7 +98,7 @@ function DetailSheet({ route, snapshot }: { route: DetailRoute; snapshot: PlaceS
   };
 
   return (
-    <div className="detail-layer">
+    <div className={`detail-layer${isPresent ? '' : ' is-leaving'}`} inert={!isPresent}>
       <motion.div
         className="detail-backdrop"
         initial={{ opacity: 0 }}

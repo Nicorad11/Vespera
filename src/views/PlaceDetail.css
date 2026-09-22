@@ -4,6 +4,10 @@
   z-index: 40;
 }
 
+.detail-layer.is-leaving {
+  pointer-events: none;
+}
+
 .detail-backdrop {
   position: absolute;
   inset: 0;
