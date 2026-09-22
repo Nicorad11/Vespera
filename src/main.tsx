@@ -18,7 +18,10 @@ createRoot(document.getElementById('root')!).render(
   </StrictMode>,
 );
 
-if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+// Offline support only for a real PWA deployment (the page links its manifest);
+// embedded copies of the app skip it.
+const isPwaDeployment = document.querySelector('link[rel="manifest"]') !== null;
+if (import.meta.env.PROD && isPwaDeployment && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     try {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
