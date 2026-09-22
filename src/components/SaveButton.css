@@ -1,0 +1,81 @@
+.save-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 999px;
+  color: var(--text-tertiary);
+  transition: color 0.2s ease;
+}
+
+.save-button.is-saved {
+  color: var(--accent);
+}
+
+.save-button__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+}
+
+.save-button__heart {
+  display: grid;
+  place-items: center;
+}
+
+.save-button__heart svg {
+  width: 22px;
+  height: 22px;
+}
+
+.save-button__burst {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.save-button__ring {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+}
+
+.save-button__particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.save-button__particle:nth-child(odd) {
+  background: var(--food);
+}
+
+.save-button--labelled {
+  padding: 0 18px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.save-button--labelled.is-saved {
+  color: var(--accent-ink);
+}
+
+.save-button--labelled .save-button__heart svg {
+  width: 20px;
+  height: 20px;
+}
+
+.save-button--labelled.is-saved .save-button__heart {
+  color: var(--accent);
+}

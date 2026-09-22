@@ -1,0 +1,249 @@
+.home .view__content {
+  padding-top: calc(var(--safe-top) + 12px);
+}
+
+/* ---------- Hero: live clock + summary. Shrinks and fades as you scroll. ---------- */
+
+.home-hero {
+  padding: 4px 0 34px;
+  margin-bottom: -26px;
+  transform-origin: 0 100%;
+  transform: scale(calc(1 - var(--collapse, 0) * 0.16));
+  opacity: calc(1 - var(--collapse, 0) * 1.15);
+  will-change: transform, opacity;
+}
+
+.home-hero__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+}
+
+.home-clock {
+  margin-top: 2px;
+  font-family: var(--font-rounded);
+  font-size: clamp(3.75rem, 17vw, 5rem);
+  font-weight: 750;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  background: linear-gradient(180deg, var(--text) 30%, color-mix(in srgb, var(--text) 62%, var(--accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.home-summary {
+  margin-top: 8px;
+  font-size: 1.1875rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+/* ---------- Sticky bar: filter control, plus a compact clock once scrolled ---------- */
+
+.home-sticky {
+  position: sticky;
+  top: var(--safe-top);
+  z-index: 10;
+  margin: 0 calc(-1 * var(--gutter)) 16px;
+  padding: 0 var(--gutter) 10px;
+}
+
+.home-sticky__glass {
+  position: absolute;
+  inset: calc(-1 * var(--safe-top) - 1px) 0 0 0;
+  border-radius: 0 0 26px 26px;
+  border-top: 0;
+  opacity: var(--collapse, 0);
+  pointer-events: none;
+}
+
+.home-sticky__compact {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  font-size: 0.9375rem;
+  font-weight: 650;
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transition:
+    opacity 0.25s ease,
+    transform 0.38s var(--ease-spring);
+  pointer-events: none;
+}
+
+.home-sticky.is-collapsed .home-sticky__compact {
+  opacity: 1;
+  transform: none;
+}
+
+.home-sticky__dot {
+  color: var(--text-tertiary);
+}
+
+/* Once stuck, the filter bar sits on the header glass, so drop its own shadow. */
+.home-sticky.is-collapsed .filter-bar {
+  box-shadow: inset 0 1px 0 var(--glass-highlight);
+}
+
+/* ---------- Controls, notice, feed ---------- */
+
+.home-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.home-controls__sort {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+.location-notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  margin: 2px 0 14px;
+  font-size: 0.8125rem;
+  color: var(--text-secondary);
+}
+
+.location-notice > svg {
+  width: 14px;
+  height: 14px;
+}
+
+.location-notice__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 32px;
+  padding: 0 10px;
+  margin-left: 2px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  color: var(--accent-ink);
+  font-weight: 650;
+}
+
+.location-notice__action svg {
+  width: 14px;
+  height: 14px;
+}
+
+.feed {
+  display: grid;
+  gap: 12px;
+}
+
+.show-closed {
+  display: block;
+  margin: 18px auto 0;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--accent-ink);
+}
+
+.show-closed:active {
+  background: var(--fill);
+}
+
+/* ---------- Empty state ---------- */
+
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 36px 16px 12px;
+  text-align: center;
+}
+
+.empty-state__icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  margin-bottom: 6px;
+  color: var(--lateNight);
+}
+
+.empty-state__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.empty-state h2 {
+  font-size: 1.1875rem;
+  font-weight: 700;
+}
+
+.empty-state p {
+  max-width: 30ch;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+/* ---------- Pull to refresh ---------- */
+
+.pull-indicator {
+  position: fixed;
+  z-index: 25;
+  top: calc(var(--safe-top) + 8px);
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin-left: -20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  pointer-events: none;
+  opacity: min(1, var(--pull-progress, 0));
+  transform: translateY(calc(var(--pull, 0px) - 30px)) scale(calc(0.6 + min(1, var(--pull-progress, 0)) * 0.4));
+  transition:
+    transform 0.35s var(--ease-spring),
+    opacity 0.2s ease;
+}
+
+.pull-indicator svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(calc(var(--pull-progress, 0) * 280deg));
+}
+
+.pull-indicator.is-pulling,
+.pull-indicator.is-armed {
+  transition: none;
+}
+
+.pull-indicator.is-armed {
+  color: var(--open);
+}
+
+.pull-indicator.is-refreshing {
+  opacity: 1;
+  transform: translateY(40px) scale(1);
+}
+
+.pull-indicator.is-refreshing svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

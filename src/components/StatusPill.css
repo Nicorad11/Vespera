@@ -1,0 +1,84 @@
+.status-pill {
+  --tone: var(--open);
+  --tone-bg: var(--open-bg);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  padding: 4px 10px 4px 8px;
+  border-radius: 999px;
+  background: var(--tone-bg);
+  color: var(--tone);
+  font-size: 0.8125rem;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.status-pill__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-pill--sm {
+  padding: 2px 8px 2px 6px;
+  font-size: 0.75rem;
+  gap: 5px;
+}
+
+.status-pill__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.status-pill--closingSoon {
+  --tone: var(--soon);
+  --tone-bg: var(--soon-bg);
+}
+
+.status-pill--closed {
+  --tone: var(--closed);
+  --tone-bg: var(--closed-bg);
+}
+
+/* Gentle pulse when a place closes within 15 minutes. */
+.status-pill.is-pulsing {
+  animation: status-glow 1.8s ease-in-out infinite;
+}
+
+.status-pill.is-pulsing .status-pill__dot {
+  animation: status-dot 1.8s ease-in-out infinite;
+}
+
+@keyframes status-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--soon) 0%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--soon) 18%, transparent);
+  }
+}
+
+@keyframes status-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.6;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pill.is-pulsing,
+  .status-pill.is-pulsing .status-pill__dot {
+    animation: none;
+  }
+}

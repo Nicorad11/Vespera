@@ -1,0 +1,48 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.toggle__track {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  border-radius: 999px;
+  background: var(--fill-strong);
+  transition: background 0.3s ease;
+  flex: none;
+}
+
+.toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 27px;
+  height: 27px;
+  border-radius: 999px;
+  background: #fff;
+  box-shadow:
+    0 3px 8px rgb(0 0 0 / 0.15),
+    0 1px 1px rgb(0 0 0 / 0.16);
+  transition: transform 0.38s var(--ease-spring), width 0.2s ease;
+}
+
+.toggle:active .toggle__thumb {
+  width: 33px;
+}
+
+.toggle.is-on .toggle__track {
+  background: var(--open);
+}
+
+.toggle.is-on .toggle__thumb {
+  transform: translateX(20px);
+}
+
+.toggle.is-on:active .toggle__thumb {
+  transform: translateX(14px);
+}

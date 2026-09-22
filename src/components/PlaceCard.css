@@ -1,0 +1,43 @@
+.place-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 8px 16px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.25s ease;
+}
+
+.place-card .place-row {
+  flex: 1;
+  pointer-events: none;
+}
+
+/* The whole card is one big button underneath the content. */
+.place-card__hit {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+}
+
+.place-card__hit:active {
+  background: var(--fill);
+}
+
+.place-card__save {
+  position: relative;
+  z-index: 1;
+  margin-top: -6px;
+}
+
+.place-card.is-closed .place-row__name {
+  color: var(--text-secondary);
+}
+
+@media (hover: hover) {
+  .place-card:hover {
+    box-shadow:
+      var(--card-shadow),
+      0 0 0 1px color-mix(in srgb, var(--card-tint) 35%, transparent);
+  }
+}

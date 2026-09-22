@@ -1,0 +1,85 @@
+.ambient {
+  --amb-1: #ff9a6b;
+  --amb-2: #8f7bff;
+  --amb-3: #4fd1e0;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--bg);
+  transition:
+    --amb-1 0.9s ease,
+    --amb-2 0.9s ease,
+    --amb-3 0.9s ease;
+}
+
+.ambient[data-category='food'] {
+  --amb-1: #ffae5c;
+  --amb-2: #ff7a59;
+  --amb-3: #ffd36b;
+}
+
+.ambient[data-category='study'] {
+  --amb-1: #4fd1e0;
+  --amb-2: #5ec2a8;
+  --amb-3: #7aa7ff;
+}
+
+.ambient[data-category='lateNight'] {
+  --amb-1: #7b74ff;
+  --amb-2: #b36bff;
+  --amb-3: #4a5bd6;
+}
+
+.ambient__blob {
+  position: absolute;
+  width: 70vmax;
+  height: 70vmax;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.38;
+  animation: ambient-drift 38s ease-in-out infinite alternate;
+}
+
+.ambient__blob--1 {
+  top: -30vmax;
+  left: -20vmax;
+  background: radial-gradient(circle, var(--amb-1), transparent 65%);
+}
+
+.ambient__blob--2 {
+  top: 10vmax;
+  right: -35vmax;
+  background: radial-gradient(circle, var(--amb-2), transparent 65%);
+  animation-duration: 46s;
+  animation-delay: -12s;
+}
+
+.ambient__blob--3 {
+  bottom: -40vmax;
+  left: -10vmax;
+  background: radial-gradient(circle, var(--amb-3), transparent 65%);
+  animation-duration: 52s;
+  animation-delay: -24s;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ambient__blob {
+    opacity: 0.28;
+  }
+}
+
+@keyframes ambient-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vmax, 4vmax, 0) scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce), (prefers-reduced-transparency: reduce) {
+  .ambient__blob {
+    animation: none;
+  }
+}

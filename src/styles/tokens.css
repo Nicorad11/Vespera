@@ -1,0 +1,158 @@
+/* Design tokens. Light by default; dark via prefers-color-scheme. */
+
+@property --amb-1 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #ff8a65;
+}
+@property --amb-2 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #7c6cff;
+}
+@property --amb-3 {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #3cc6d8;
+}
+
+:root {
+  color-scheme: light dark;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --font-rounded: ui-rounded, 'SF Pro Rounded', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+
+  --bg: #f4f2f8;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #ebe8f1;
+  --text: #16151c;
+  --text-secondary: rgb(22 21 28 / 0.62);
+  --text-tertiary: rgb(22 21 28 / 0.42);
+  --separator: rgb(22 21 28 / 0.1);
+  --fill: rgb(120 120 128 / 0.12);
+  --fill-strong: rgb(120 120 128 / 0.2);
+
+  /* Brand: an evening-star rose, used for "All" and primary actions. */
+  --accent: #d6336c;
+  --accent-ink: #b0204f;
+  --on-accent: #ffffff;
+
+  /* Category accents: food = warm orange, study = teal, late night = indigo. */
+  --food: #f28a00;
+  --food-ink: #a95300;
+  --study: #12a4b9;
+  --study-ink: #077283;
+  --lateNight: #5856d6;
+  --lateNight-ink: #4643c2;
+
+  --open: #1d8a3a;
+  --open-bg: rgb(52 199 89 / 0.16);
+  --soon: #b35300;
+  --soon-bg: rgb(255 149 0 / 0.2);
+  --closed: rgb(22 21 28 / 0.56);
+  --closed-bg: rgb(120 120 128 / 0.14);
+
+  /* Liquid glass: for floating controls, not for reading surfaces. */
+  --glass-bg: rgb(255 255 255 / 0.5);
+  --glass-bg-strong: rgb(255 255 255 / 0.74);
+  --glass-border: rgb(255 255 255 / 0.7);
+  --glass-edge: rgb(0 0 0 / 0.07);
+  --glass-highlight: rgb(255 255 255 / 0.95);
+  --glass-sheen: rgb(255 255 255 / 0.45);
+  --glass-blur: blur(22px) saturate(185%);
+  --glass-shadow: 0 12px 32px -12px rgb(40 24 80 / 0.28), 0 2px 8px rgb(40 24 80 / 0.06);
+
+  /* Reading surfaces (cards): mostly opaque so text stays crisp. */
+  --card-bg: rgb(255 255 255 / 0.82);
+  --card-border: rgb(255 255 255 / 0.9);
+  --card-shadow: 0 1px 2px rgb(20 16 40 / 0.05), 0 10px 28px -14px rgb(20 16 40 / 0.22);
+
+  --radius-card: 24px;
+  --radius-tile: 14px;
+  --radius-sheet: 28px;
+  --gutter: 16px;
+  --content-width: 640px;
+  --tabbar-height: 64px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --bottom-chrome: calc(var(--tabbar-height) + max(var(--safe-bottom), 12px) + 12px);
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  /* Approximates spring(response: 0.35, dampingFraction: 0.8). */
+  --ease-spring: linear(0, 0.157, 0.48, 0.753, 0.927, 1.02, 1.056, 1.058, 1.045, 1.028, 1.012, 1.001, 0.996, 0.995, 1);
+  --duration: 0.38s;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d0c13;
+    --bg-elevated: #1c1a25;
+    --bg-sunken: #08070c;
+    --text: #f5f3fb;
+    --text-secondary: rgb(245 243 251 / 0.64);
+    --text-tertiary: rgb(245 243 251 / 0.42);
+    --separator: rgb(255 255 255 / 0.1);
+    --fill: rgb(120 120 128 / 0.24);
+    --fill-strong: rgb(120 120 128 / 0.36);
+
+    --accent: #ff5f93;
+    --accent-ink: #ff86ad;
+    --on-accent: #1b0710;
+
+    --food: #ff9f0a;
+    --food-ink: #ffb84d;
+    --study: #34c3d9;
+    --study-ink: #6cdaeb;
+    --lateNight: #7a78ff;
+    --lateNight-ink: #a9a7ff;
+
+    --open: #34d058;
+    --open-bg: rgb(48 209 88 / 0.18);
+    --soon: #ffb340;
+    --soon-bg: rgb(255 159 10 / 0.22);
+    --closed: rgb(245 243 251 / 0.6);
+    --closed-bg: rgb(120 120 128 / 0.26);
+
+    --glass-bg: rgb(44 42 58 / 0.46);
+    --glass-bg-strong: rgb(36 34 48 / 0.76);
+    --glass-border: rgb(255 255 255 / 0.14);
+    --glass-edge: rgb(0 0 0 / 0.45);
+    --glass-highlight: rgb(255 255 255 / 0.22);
+    --glass-sheen: rgb(255 255 255 / 0.12);
+    --glass-shadow: 0 14px 36px -12px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.3);
+
+    --card-bg: rgb(30 28 40 / 0.78);
+    --card-border: rgb(255 255 255 / 0.08);
+    --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 30px -14px rgb(0 0 0 / 0.7);
+  }
+}
+
+@media (min-width: 700px) {
+  :root {
+    --gutter: 20px;
+  }
+}
+
+/* Reduce Transparency: solid surfaces everywhere. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: var(--bg-elevated);
+    --glass-bg-strong: var(--bg-elevated);
+    --card-bg: var(--bg-elevated);
+    --glass-blur: none;
+    --glass-sheen: transparent;
+  }
+}
+
+/* Increased contrast: firmer edges and text. */
+@media (prefers-contrast: more) {
+  :root {
+    --glass-border: var(--text-tertiary);
+    --card-border: var(--text-tertiary);
+    --text-secondary: var(--text);
+    --glass-bg: var(--bg-elevated);
+    --glass-bg-strong: var(--bg-elevated);
+  }
+}

@@ -1,0 +1,77 @@
+.filter-bar-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  max-width: 100%;
+}
+
+.filter-seg {
+  --on-seg: #fff;
+  position: relative;
+  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 40px;
+  padding: 0 11px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 620;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  color: var(--text);
+  transition: color 0.25s ease;
+}
+
+.filter-seg__icon {
+  width: 17px;
+  height: 17px;
+  color: var(--seg-ink);
+  transition: color 0.25s ease;
+}
+
+.filter-seg:active:not(.is-active) {
+  background: var(--fill);
+}
+
+.filter-seg.is-active,
+.filter-seg.is-active .filter-seg__icon {
+  color: var(--on-seg);
+}
+
+.filter-seg__pill {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--seg), var(--seg-ink));
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.4),
+    0 6px 16px -6px color-mix(in srgb, var(--seg) 75%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  .filter-seg {
+    --on-seg: rgb(0 0 0 / 0.86);
+  }
+}
+
+/* When the full labels don't fit (narrow screen, large text, long language),
+   only the selected segment keeps its label. */
+.filter-bar.is-compact .filter-seg {
+  padding: 0 12px;
+}
+
+.filter-bar.is-compact .filter-seg:not(.is-active) .filter-seg__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

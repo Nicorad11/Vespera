@@ -1,0 +1,13 @@
+.glass-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: var(--card-bg);
+  border: 0.5px solid var(--card-border);
+  box-shadow: var(--card-shadow);
+}
+
+.glass-card--glass {
+  background:
+    radial-gradient(140% 120% at 100% 0%, color-mix(in srgb, var(--card-tint, var(--accent)) 22%, transparent), transparent 60%),
+    var(--glass-bg-strong);
+}
