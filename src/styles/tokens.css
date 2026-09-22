@@ -1,4 +1,5 @@
-/* Design tokens. Light by default; dark via prefers-color-scheme. */
+/* Design tokens. Light by default; dark via prefers-color-scheme, unless the
+   host page stamps an explicit data-theme="light" / "dark" on the root. */
 
 @property --amb-1 {
   syntax: '<color>';
@@ -17,7 +18,7 @@
 }
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue',
     Arial, sans-serif;
@@ -83,10 +84,16 @@
   /* Approximates spring(response: 0.35, dampingFraction: 0.8). */
   --ease-spring: linear(0, 0.157, 0.48, 0.753, 0.927, 1.02, 1.056, 1.058, 1.045, 1.028, 1.012, 1.001, 0.996, 0.995, 1);
   --duration: 0.38s;
+
+  /* Text on a selected filter segment, and how strongly the ambient colour shows. */
+  --on-seg: #ffffff;
+  --ambient-opacity: 0.38;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  /* :where() keeps these at :root specificity so the accessibility overrides below still win. */
+  :root:where(:not([data-theme='light'])) {
+    color-scheme: dark;
     --bg: #0d0c13;
     --bg-elevated: #1c1a25;
     --bg-sunken: #08070c;
@@ -126,7 +133,57 @@
     --card-bg: rgb(30 28 40 / 0.78);
     --card-border: rgb(255 255 255 / 0.08);
     --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 30px -14px rgb(0 0 0 / 0.7);
+
+    --on-seg: rgb(0 0 0 / 0.86);
+    --ambient-opacity: 0.28;
   }
+}
+
+/* Same dark palette when the host explicitly picks dark. Keep both blocks in sync. */
+:root:where([data-theme='dark']) {
+  color-scheme: dark;
+  --bg: #0d0c13;
+  --bg-elevated: #1c1a25;
+  --bg-sunken: #08070c;
+  --text: #f5f3fb;
+  --text-secondary: rgb(245 243 251 / 0.64);
+  --text-tertiary: rgb(245 243 251 / 0.42);
+  --separator: rgb(255 255 255 / 0.1);
+  --fill: rgb(120 120 128 / 0.24);
+  --fill-strong: rgb(120 120 128 / 0.36);
+
+  --accent: #ff5f93;
+  --accent-ink: #ff86ad;
+  --on-accent: #1b0710;
+
+  --food: #ff9f0a;
+  --food-ink: #ffb84d;
+  --study: #34c3d9;
+  --study-ink: #6cdaeb;
+  --lateNight: #7a78ff;
+  --lateNight-ink: #a9a7ff;
+
+  --open: #34d058;
+  --open-bg: rgb(48 209 88 / 0.18);
+  --soon: #ffb340;
+  --soon-bg: rgb(255 159 10 / 0.22);
+  --closed: rgb(245 243 251 / 0.6);
+  --closed-bg: rgb(120 120 128 / 0.26);
+
+  --glass-bg: rgb(44 42 58 / 0.46);
+  --glass-bg-strong: rgb(36 34 48 / 0.76);
+  --glass-border: rgb(255 255 255 / 0.14);
+  --glass-edge: rgb(0 0 0 / 0.45);
+  --glass-highlight: rgb(255 255 255 / 0.22);
+  --glass-sheen: rgb(255 255 255 / 0.12);
+  --glass-shadow: 0 14px 36px -12px rgb(0 0 0 / 0.7), 0 2px 8px rgb(0 0 0 / 0.3);
+
+  --card-bg: rgb(30 28 40 / 0.78);
+  --card-border: rgb(255 255 255 / 0.08);
+  --card-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 12px 30px -14px rgb(0 0 0 / 0.7);
+
+  --on-seg: rgb(0 0 0 / 0.86);
+  --ambient-opacity: 0.28;
 }
 
 @media (min-width: 700px) {

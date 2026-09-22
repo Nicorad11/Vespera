@@ -121,6 +121,10 @@ export function MapView({ active }: { active: boolean }) {
     const container = containerRef.current;
     if (!container) return;
     const dark = window.matchMedia('(prefers-color-scheme: dark)');
+    const isDark = () => {
+      const theme = document.documentElement.dataset.theme;
+      return theme ? theme === 'dark' : dark.matches;
+    };
     const map = L.map(container, {
       center: [SOLBJERG_PLADS.latitude, SOLBJERG_PLADS.longitude],
       zoom: 15,
@@ -131,13 +135,15 @@ export function MapView({ active }: { active: boolean }) {
       zoomSnap: 0.25,
     });
     L.control.attribution({ position: 'topleft', prefix: false }).addTo(map);
-    const tiles = L.tileLayer(tileUrl(dark.matches), {
+    const tiles = L.tileLayer(tileUrl(isDark()), {
       attribution: ATTRIBUTION,
       subdomains: 'abcd',
       maxZoom: 20,
     }).addTo(map);
-    const onTheme = () => tiles.setUrl(tileUrl(dark.matches));
+    const onTheme = () => tiles.setUrl(tileUrl(isDark()));
     dark.addEventListener('change', onTheme);
+    const themeObserver = new MutationObserver(onTheme);
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
     const updateBounds = () => setBounds(map.getBounds());
     map.on('moveend', updateBounds);
@@ -171,6 +177,7 @@ export function MapView({ active }: { active: boolean }) {
 
     return () => {
       dark.removeEventListener('change', onTheme);
+      themeObserver.disconnect();
       markers.forEach((m) => m.remove());
       map.remove();
       mapRef.current = null;

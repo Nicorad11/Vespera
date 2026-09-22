@@ -37,6 +37,17 @@ function hashFor({ tab, detail }: NavState): string {
   return `#/${tab}${detail ? `/place/${encodeURIComponent(detail.id)}` : ''}`;
 }
 
+/** Updates the URL; returns false when the browser refuses (e.g. a sandboxed frame). */
+function writeUrl(hash: string, mode: 'push' | 'replace'): boolean {
+  try {
+    if (mode === 'push') history.pushState(null, '', hash);
+    else history.replaceState(null, '', hash);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const initial = parseHash(typeof location === 'undefined' ? '' : location.hash);
 const nav = createStore<NavState>({
   tab: initial.tab,
@@ -71,7 +82,7 @@ export function selectTab(tab: Tab): void {
   }
   const next: NavState = { tab, detail: null };
   nav.set(next);
-  history.replaceState(null, '', hashFor(next));
+  writeUrl(hashFor(next), 'replace');
 }
 
 export function openPlace(id: string, layoutKey: string | null = null): void {
@@ -79,10 +90,9 @@ export function openPlace(id: string, layoutKey: string | null = null): void {
   const next: NavState = { ...state, detail: { id, layoutKey } };
   nav.set(next);
   if (state.detail) {
-    history.replaceState(null, '', hashFor(next));
+    writeUrl(hashFor(next), 'replace');
   } else {
-    history.pushState(null, '', hashFor(next));
-    detailPushed = true;
+    detailPushed = writeUrl(hashFor(next), 'push');
   }
   recordRecent(id);
 }
@@ -96,7 +106,7 @@ export function closePlace(): void {
     detailPushed = false;
     history.back();
   } else {
-    history.replaceState(null, '', hashFor(next));
+    writeUrl(hashFor(next), 'replace');
   }
 }
 
@@ -121,10 +131,10 @@ export function showOnMap(id: string): void {
     // history.back() restores the previous tab asynchronously; re-apply the map tab after it.
     window.addEventListener('popstate', () => {
       nav.set(next);
-      history.replaceState(null, '', hashFor(next));
+      writeUrl(hashFor(next), 'replace');
     }, { once: true });
   } else {
-    history.replaceState(null, '', hashFor(next));
+    writeUrl(hashFor(next), 'replace');
   }
   mapFocus.set((previous) => ({ id, count: (previous?.count ?? 0) + 1 }));
 }

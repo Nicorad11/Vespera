@@ -84,16 +84,21 @@ function DetailSheet({ route, snapshot }: { route: DetailRoute; snapshot: PlaceS
   const share = async () => {
     const url = placeUrl(place);
     const text = t('detail.shareText', { name: place.name, status: display.label });
-    try {
-      if (navigator.share) {
+    if (navigator.share) {
+      try {
         await navigator.share({ title: place.name, text, url });
         return;
+      } catch (error) {
+        // Dismissed by the user: done. Refused by the browser: copy the link instead.
+        if (error instanceof DOMException && error.name === 'AbortError') return;
       }
+    }
+    try {
       await navigator.clipboard.writeText(`${text} ${url}`);
       haptic('light');
       showToast(t('detail.copied'));
     } catch {
-      // Share sheet dismissed: nothing to do.
+      // Clipboard refused too; nothing else to offer.
     }
   };
 

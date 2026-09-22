@@ -12,7 +12,6 @@
 }
 
 .filter-seg {
-  --on-seg: #fff;
   position: relative;
   z-index: 0;
   display: inline-flex;
@@ -54,12 +53,6 @@
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.4),
     0 6px 16px -6px color-mix(in srgb, var(--seg) 75%, transparent);
-}
-
-@media (prefers-color-scheme: dark) {
-  .filter-seg {
-    --on-seg: rgb(0 0 0 / 0.86);
-  }
 }
 
 /* When the full labels don't fit (narrow screen, large text, long language),

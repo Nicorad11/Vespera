@@ -37,7 +37,7 @@
   height: 70vmax;
   border-radius: 50%;
   filter: blur(60px);
-  opacity: 0.38;
+  opacity: var(--ambient-opacity);
   animation: ambient-drift 38s ease-in-out infinite alternate;
 }
 
@@ -61,12 +61,6 @@
   background: radial-gradient(circle, var(--amb-3), transparent 65%);
   animation-duration: 52s;
   animation-delay: -24s;
-}
-
-@media (prefers-color-scheme: dark) {
-  .ambient__blob {
-    opacity: 0.28;
-  }
 }
 
 @keyframes ambient-drift {
