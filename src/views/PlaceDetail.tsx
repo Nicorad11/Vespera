@@ -104,13 +104,13 @@ function DetailSheet({ route, snapshot }: { route: DetailRoute; snapshot: PlaceS
         exit={{ opacity: 0 }}
         onClick={closePlace}
       />
-      <motion.article
+      <motion.div
         className="detail"
         role="dialog"
         aria-modal="true"
         aria-labelledby="detail-title"
         layoutId={route.layoutKey ?? undefined}
-        style={{ borderRadius: 30, '--tint': meta.color } as CSSProperties}
+        style={{ borderRadius: 30, '--tint': meta.color, '--tint-ink': meta.ink } as CSSProperties}
         initial={morph ? undefined : { y: '100%' }}
         animate={morph ? undefined : { y: 0 }}
         exit={morph ? undefined : { y: '100%' }}
@@ -229,7 +229,7 @@ function DetailSheet({ route, snapshot }: { route: DetailRoute; snapshot: PlaceS
         <button ref={closeButton} type="button" className="detail__close icon-button glass glass-press" onClick={closePlace} aria-label={t('detail.close')}>
           <X aria-hidden />
         </button>
-      </motion.article>
+      </motion.div>
     </div>
   );
 }

@@ -51,13 +51,16 @@ export function SavedView({ active }: { active: boolean }) {
             <p>{t('saved.emptyBody')}</p>
           </div>
         ) : (
-          <ul className="feed">
+          <>
+            <h2 className="visually-hidden">{t('saved.favorites')}</h2>
+            <ul className="feed">
             <AnimatePresence mode="popLayout" initial={false}>
               {saved.map((snapshot) => (
                 <PlaceCard key={snapshot.place.id} snapshot={snapshot} layoutKey={`saved-${snapshot.place.id}`} />
               ))}
             </AnimatePresence>
-          </ul>
+            </ul>
+          </>
         )}
 
         {recent.length > 0 && (

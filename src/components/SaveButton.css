@@ -7,7 +7,7 @@
   min-width: 44px;
   min-height: 44px;
   border-radius: 999px;
-  color: var(--text-tertiary);
+  color: var(--text-secondary);
   transition: color 0.2s ease;
 }
 

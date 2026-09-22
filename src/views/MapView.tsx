@@ -17,7 +17,7 @@ import { haptic } from '../services/haptics';
 import { setCategory, useCategory } from '../viewmodels/filters';
 import { useI18n } from '../viewmodels/i18n';
 import { requestLocation, useOrigin } from '../viewmodels/location';
-import { openPlace, useMapFocus } from '../viewmodels/navigation';
+import { openPlace, useMapFocus, useNavigation } from '../viewmodels/navigation';
 import { PLACES, placeById } from '../viewmodels/places';
 import { useSnapshots } from '../viewmodels/snapshots';
 import './MapView.css';
@@ -43,6 +43,7 @@ export function MapView({ active }: { active: boolean }) {
   const category = useCategory();
   const origin = useOrigin();
   const focus = useMapFocus();
+  const detailOpen = useNavigation().detail !== null;
 
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
@@ -273,13 +274,15 @@ export function MapView({ active }: { active: boolean }) {
     return () => cancelAnimationFrame(frame);
   }, [focus, active, focusPlace]);
 
+  // Escape closes the card, unless it's closing a detail opened on top of it.
   useEffect(() => {
+    if (!active || detailOpen) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && active && selectionRef.current?.stage === 'card') closeCardRef.current();
+      if (event.key === 'Escape' && selectionRef.current?.stage === 'card') closeCardRef.current();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [active]);
+  }, [active, detailOpen]);
 
   const selected = selection ? byId.get(selection.id) : undefined;
 
